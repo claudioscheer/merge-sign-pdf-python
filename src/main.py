@@ -1,6 +1,5 @@
 import argparse
 import sys
-import numpy as np
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--files", nargs="+", help="PDF files to merge and sign")
