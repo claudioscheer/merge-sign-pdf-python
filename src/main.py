@@ -1,7 +1,8 @@
+import datetime
 import argparse
 import sys
 from edit_pdf import merge_rotate_pdf_files
-from sign_pdf import is_file_signed
+from sign_pdf import is_file_signed, sign_file
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -45,4 +46,15 @@ if len(args.certificates) != len(args.passwords):
     raise Exception("Certificates and passwords must have the same length.")
 
 file_merged = merge_rotate_pdf_files(args.files, pages_rotation_matrix)
-print(file_merged)
+
+date = datetime.datetime.utcnow()
+date = date.strftime("%Y%m%d%H%M%S+00'00'")
+sign_infos = {
+    b"sigflags": 3,
+    b"contact": b"example@example.com",
+    b"location": b"Unknown",
+    b"signingdate": date.encode(),
+    b"reason": b"Just a document",
+}
+file_signed = sign_file(file_merged, sign_infos, args.certificates, args.passwords)
+print(file_signed)
