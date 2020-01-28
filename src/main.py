@@ -1,6 +1,7 @@
 import argparse
 import sys
 from edit_pdf import merge_rotate_pdf_files
+from sign_pdf import is_file_signed
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--files", nargs="+", help="PDF files to merge and sign")
@@ -14,6 +15,11 @@ parser.add_argument("-o", "--output", help="Output file name")
 args = parser.parse_args()
 
 files_len = len(args.files)
+# region Verify is some file is already signed.
+for file in args.files:
+    if is_file_signed(file):
+        raise Exception(f"The file {file} is already signed.")
+# endregion
 # region Convert --pages-rotation-matrix argument to a matrix of int.
 pages_rotation_matrix = []
 for file_array in [x.strip() for x in args.pages_rotation_matrix.split(";")]:

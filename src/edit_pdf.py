@@ -26,7 +26,7 @@ def merge_rotate_pdf_files(files, pages_rotation_matrix):
 
     file_merged = merge_files(rotated_files)
     remove_files(rotated_files)
-    return "ok"
+    return file_merged
 
 
 def merge_files(files):
@@ -55,7 +55,3 @@ def rotate_pages(file, pages_rotation):
         with open(out_file, "wb") as pdf_out:
             pdf_writer.write(pdf_out)
             return out_file
-
-
-def is_file_signed(file):
-    pass
