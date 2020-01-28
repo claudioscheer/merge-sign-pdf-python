@@ -1,0 +1,1 @@
+python src/main.py --files ./test-files/pdfs/file1.pdf ./test-files/pdfs/file2.pdf --rotate-page-matrix "0; 90" --keys ./test-files/keys/user1@example.com/cert.p12 ./test-files/keys/user2@example.com/cert.p12 -o output.pdf
