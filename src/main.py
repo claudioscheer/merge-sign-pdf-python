@@ -1,23 +1,29 @@
 import argparse
 import sys
+from edit_pdf import merge_rotate_pdf_files
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--files", nargs="+", help="PDF files to merge and sign")
 parser.add_argument(
-    "--rotate-pages-matrix",
-    help="Degrees to rotate PDF pages. The values for each PDF file must be separated by semicolons. Ex: 0 0; 90",
+    "--pages-rotation-matrix",
+    help='Degrees to rotate PDF pages. The values for each PDF file must be separated by semicolons. Ex: "0 0; 90"',
 )
-parser.add_argument("--keys", nargs="+", help="Keys to sign the PDF files")
+parser.add_argument("--keys", nargs="+", help="Certificates to sign the PDF files")
+parser.add_argument("--passwords", nargs="+", help="Passwords to open the certificates")
 parser.add_argument("-o", "--output", help="Output file name")
 args = parser.parse_args()
 
 files_len = len(args.files)
-rotate_pages_matrix = [
-    z.split() for z in [x.strip() for x in args.rotate_page_matrix.split(";")]
-]
-rotate_pages_matrix_len = len(rotate_pages_matrix)
+# region Convert --pages-rotation-matrix argument to a matrix of int.
+pages_rotation_matrix = []
+for file_array in [x.strip() for x in args.pages_rotation_matrix.split(";")]:
+    values_each_page = file_array.split()
+    pages_rotation_matrix.append([int(x) for x in values_each_page])
+# endregion
+pages_rotation_matrix_len = len(pages_rotation_matrix)
 
-if files_len != rotate_pages_matrix_len:
-    sys.exit("Files and rotate pages matrix must have the same lenght.")
+if files_len != pages_rotation_matrix_len:
+    raise Exception("Files and pages rotation matrix must have the same length.")
 
-print(rotate_pages_matrix)
+file_merged = merge_rotate_pdf_files(args.files, pages_rotation_matrix)
+print(file_merged)
