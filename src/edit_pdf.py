@@ -15,18 +15,23 @@ def get_cache_file_path():
 
 def remove_files(files):
     for file in files:
-        os.remove(file)
+        if os.path.exists(file):
+            os.unlink(file)
 
 
 def merge_rotate_pdf_files(files, pages_rotation_matrix):
     rotated_files = []
-    for (file, rotation) in zip(files, pages_rotation_matrix):
-        out_file = rotate_pages(file, rotation)
-        rotated_files.append(out_file)
+    try:
+        for (file, rotation) in zip(files, pages_rotation_matrix):
+            out_file = rotate_pages(file, rotation)
+            rotated_files.append(out_file)
 
-    file_merged = merge_files(rotated_files)
-    remove_files(rotated_files)
-    return file_merged
+        file_merged = merge_files(rotated_files)
+        return file_merged
+    except:
+        raise
+    finally:
+        remove_files(rotated_files)
 
 
 def merge_files(files):

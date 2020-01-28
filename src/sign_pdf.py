@@ -8,3 +8,7 @@ def is_file_signed(file):
         return signature_ok or hash_ok or cert_ok
     except:
         return False
+
+
+def sign_file(file, certificates):
+    pass

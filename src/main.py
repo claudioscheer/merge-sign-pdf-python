@@ -13,7 +13,10 @@ parser.add_argument(
     required=True,
 )
 parser.add_argument(
-    "--keys", nargs="+", help="Certificates to sign the PDF files", required=True
+    "--certificates",
+    nargs="+",
+    help="Certificates to sign the PDF files",
+    required=True,
 )
 parser.add_argument(
     "--passwords", nargs="+", help="Passwords to open the certificates", required=True
@@ -22,21 +25,24 @@ parser.add_argument("-o", "--output", help="Output file name", required=True)
 args = parser.parse_args()
 
 files_len = len(args.files)
-#region Verify is some file is already signed.
+# region Verify is some file is already signed.
 for file in args.files:
     if is_file_signed(file):
         raise Exception(f"The file {file} is already signed.")
-#endregion
-#region Convert --pages-rotation-matrix argument to a matrix of int.
+# endregion
+# region Convert --pages-rotation-matrix argument to a matrix of int.
 pages_rotation_matrix = []
 for file_array in [x.strip() for x in args.pages_rotation_matrix.split(";")]:
     values_each_page = file_array.split()
     pages_rotation_matrix.append([int(x) for x in values_each_page])
-#endregion
+# endregion
 pages_rotation_matrix_len = len(pages_rotation_matrix)
 
 if files_len != pages_rotation_matrix_len:
     raise Exception("Files and pages rotation matrix must have the same length.")
+
+if len(args.certificates) != len(args.passwords):
+    raise Exception("Certificates and passwords must have the same length.")
 
 file_merged = merge_rotate_pdf_files(args.files, pages_rotation_matrix)
 print(file_merged)
