@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "/home/marmot/miniconda3/envs/trash/bin/python",
+    "python.pythonPath": "/home/claudio/miniconda3/envs/trash/bin/python",
     "python.formatting.provider": "black"
 }
