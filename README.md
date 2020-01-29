@@ -1,4 +1,4 @@
-# Merge and Sign PDF files command line
+# Merge and Sign PDF files using command line
 
 This __alpha__ project uses Python to merge and sign PDF files with multiple certificates.
 
