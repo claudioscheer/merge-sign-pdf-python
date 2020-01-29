@@ -1,0 +1,1 @@
+pyinstaller src/main.py --noconfirm --onefile -n merge-sign-pdf --add-data="/home/claudio/miniconda3/envs/trash/lib/python3.8/site-packages/pdf_annotate:pdf_annotate"
