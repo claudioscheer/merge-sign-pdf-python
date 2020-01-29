@@ -20,7 +20,8 @@ def sign_file(file, sign_infos, certificates, passwords, current_index=0):
     password = passwords[current_index]
 
     p12 = load_pkcs12(open(certificate, "rb").read(), password)
-    location = p12.get_certificate().get_subject().C
+    p12_subject = p12.get_certificate().get_subject()
+    location = p12_subject.C if p12_subject.C else "Unknown"
     out_file_path = get_cache_file_path()
 
     pdf_data = open(file, "rb").read()
