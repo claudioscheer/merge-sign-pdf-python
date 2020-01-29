@@ -6,7 +6,7 @@ from edit_pdf import merge_rotate_pdf_files
 from sign_pdf import is_file_signed, sign_file
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-v", "--version", action="version", version="%(prog)s 0.0.1")
+parser.add_argument("-v", "--version", action="version", version="%(prog)s v0.0.1-alpha")
 parser.add_argument(
     "--files", nargs="+", help="PDF files to merge and sign", required=True
 )
