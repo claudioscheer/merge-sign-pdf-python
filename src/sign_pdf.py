@@ -27,8 +27,6 @@ def sign_file(file, sign_infos, certificates, passwords, current_index=0):
         location = sign_infos.get(b"location")
     out_file_path = get_cache_file_path()
 
-    print({**sign_infos, **{b"location": location.encode()}})
-
     pdf_data = open(file, "rb").read()
     pdf_signature_data = pdf.cms.sign(
         pdf_data,
