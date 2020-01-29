@@ -52,7 +52,6 @@ date = date.strftime("%Y%m%d%H%M%S+00'00'")
 sign_infos = {
     b"sigflags": 3,
     b"contact": b"example@example.com",
-    b"location": b"Unknown",
     b"signingdate": date.encode(),
     b"reason": b"Just a document",
 }
