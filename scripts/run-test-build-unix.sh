@@ -1,3 +1,3 @@
-./scripts/build.sh
+./scripts/build-unix.sh
 cp dist/merge-sign-pdf .
 ./merge-sign-pdf --files ./test-files/pdfs/file1.pdf ./test-files/pdfs/file2.pdf ./test-files/pdfs/file4.pdf --pages-rotation-matrix "0; 90; 0 270" --certificates ./test-files/certificates/user1@example.com/cert.p12 ./test-files/certificates/user2@example.com/cert.p12 --passwords "user1@example.com" "user2@example.com" --output output.pdf --location BR --reason "Just sign it!" --contact "example@example.com"
