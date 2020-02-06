@@ -67,3 +67,4 @@ sign_infos = {
 }
 file_signed = sign_file(file_merged, sign_infos, args.certificates, args.passwords)
 shutil.move(file_signed, args.output)
+print("File signed.")
