@@ -6,7 +6,9 @@ from edit_pdf import merge_rotate_pdf_files
 from sign_pdf import is_file_signed, sign_file
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-v", "--version", action="version", version="%(prog)s v0.0.1-alpha")
+parser.add_argument(
+    "-v", "--version", action="version", version="%(prog)s v0.0.2-alpha"
+)
 parser.add_argument(
     "--files", nargs="+", help="PDF files to merge and sign", required=True
 )
@@ -41,7 +43,7 @@ for file in args.files:
 # region Convert --pages-rotation-matrix argument to a matrix of int.
 pages_rotation_matrix = []
 for file_array in [x.strip() for x in args.pages_rotation_matrix.split(";")]:
-    values_each_page = file_array.split()
+    values_each_page = file_array.split(",")
     pages_rotation_matrix.append([int(x) for x in values_each_page])
 # endregion
 pages_rotation_matrix_len = len(pages_rotation_matrix)
